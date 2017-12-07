@@ -1,58 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-	<head>
-		<title>TapTap</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	</head>
-	<body>
-		<br />
-		<div class="container">
-			<h2 align="center">Welcome to our experiment!</h2>
-			<br />
-			<div class="col-md-6" style="margin:0 auto; float:none;">
-				<form method="post">
-					<h3 align="left">Before you start the experiment please confirm the following to continue:</h3>
-					<br />
-					<?php echo $error; ?>
-					<div class="form-group">
-						<label> I am sitting in a quite environment where there is no other sound playing and no background noises </label>
-						<input type="text" name="req1" placeholder="Yes" class="form-control" value="<?php echo $req1; ?>" />
-					</div>
-					<div class="form-group">
-						<label>I know where my microphone is </label>
-						<input type="text" name="req2" placeholder="Yes" class="form-control" value="<?php echo $req2; ?>" />
-					</div>
-					<div class="form-group">
-						<label>I will allow the experiment to access my microphone when prompted. (This will let us record your participation) </label>
-						<input type="text" name="req3" placeholder="Yes" class="form-control" value="<?php echo $req3; ?>" />
-					</div>
-					<div class="form-group">
-						<label> I have turned off any machines such as fans or air conditioners that may contribute to background noise</label>
-						<input type="text" name="req4" placeholder="Yes" class="form-control" value="<?php echo $req4; ?>" />
-					</div>
-					<div class="form-group">
-						<label> I agree that once set up I will not change any settings on my computer to ensure a consistent recording</label>
-						<input type="text" name="req5" placeholder="Yes" class="form-control" value="<?php echo $req5; ?>" />
-					</div>
-					<div class="form-group">
-						<label> I have let everyone around me know that they must be quite for the duration of this experiment </label>
-						<input type="text" name="req6" placeholder="Yes" class="form-control" value="<?php echo $req6; ?>" />
-					</div>
-					<div class="form-group">
-						<label> I have made sure that no other audio/sound is playing from the device I am using for this experiment </label>
-						<input type="text" name="req7" placeholder="Yes" class="form-control" value="<?php echo $req7; ?>" />
-					</div>
-					<div class="form-group">
-						<label> I have made sure that my web browser is one of the following (or a version above) Internet Explorer 11, Google Chrome 60, Safari 11 </label>
-						<input type="text" name="req8" placeholder="Yes" class="form-control" value="<?php echo $req8; ?>" />
-					</div>
-					<div class="form-group" align="center">
-						<input type="submit" name="submit" class="btn btn-info" value="Submit" />
-					</div>
-				</form>
-			</div>
-		</div>
-	</body>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Audio Recorder</title>
+
+	<script src="js/audiodisplay.js"></script>
+	<script src="js/recorderjs/recorder.js"></script>
+	<script src="js/main.js"></script>
+	<style>
+	html { overflow: hidden; }
+	body { 
+		font: 14pt Arial, sans-serif; 
+		background: lightgrey;
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+		width: 100%;
+		margin: 0 0;
+	}
+	canvas { 
+		display: inline-block; 
+		background: #202020; 
+		width: 95%;
+		height: 45%;
+		box-shadow: 0px 0px 10px blue;
+	}
+	#controls {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+		height: 20%;
+		width: 100%;
+	}
+	#record { height: 15vh; }
+	#record.recording { 
+		background: red;
+		background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
+		background: -moz-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
+		background: radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
+	}
+	#save, #save img { height: 10vh; }
+	#save { opacity: 0.25;}
+	#save[download] { opacity: 1;}
+	#viz {
+		height: 80%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+	}
+	@media (orientation: landscape) {
+		body { flex-direction: row;}
+		#controls { flex-direction: column; height: 100%; width: 10%;}
+		#viz { height: 100%; width: 90%;}
+	}
+	</style>
+</head>
+<body>
+	<div id="viz">
+		<canvas id="analyser" width="1024" height="500"></canvas>
+		<canvas id="wavedisplay" width="1024" height="500"></canvas>
+	</div>
+	<div id="controls">
+		<img id="record" src="img/mic.svg" onclick="toggleRecording(this);">
+		<a id="save" href="#"><img src="img/save.svg"></a>
+	</div>
+</body>
 </html>
