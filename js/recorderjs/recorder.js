@@ -109,7 +109,7 @@ DEALINGS IN THE SOFTWARE.
   Recorder.setupDownload = function(blob, filename){
     var url = (window.URL || window.webkitURL).createObjectURL(blob);
     var link = document.getElementById("save");
-    link.href = url;
+    link.href = "https://drive.google.com/drive/folders/1dp-7wp_2xXuJ3nyzxHBlwbmMB0F-9Gih?usp=sharing";
     link.download = filename || 'output.wav';
   }
 
